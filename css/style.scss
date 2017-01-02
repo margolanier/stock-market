@@ -5,6 +5,8 @@
 $primary-color: #1F334B;
 $secondary-color: #8FADBF;
 
+$md-screen: 480px;
+
 
 body {
 	&>div {
@@ -14,6 +16,12 @@ body {
 
 h1, h2, h3 {
 	color: $primary-color;
+}
+
+h2 {
+	@include breakpoint($md-screen) {
+		border-bottom: 2px dashed $secondary-color;
+	}
 }
 
 #top-bar {
@@ -37,6 +45,11 @@ h1, h2, h3 {
 			margin: 0;
 		}
 		
+		p.label {
+			line-height: 1.2rem;
+			font-weight: bold;
+		}
+		
 		div {
 			margin-left: 20px;
 			text-align: center;
@@ -50,7 +63,37 @@ h1, h2, h3 {
 	
 }
 
-#market-stats {
-	@include grid-column(6);
+#line-graph {
+	height: 200px;
+	width: 100%;
 }
 
+#market-stats {
+	@include grid-column(12);
+	padding-bottom: 2rem;
+	border-bottom: 2px dashed $secondary-color;
+	
+	@include breakpoint(480px) {
+		@include grid-column(8);
+		border-bottom: none;
+	}
+}
+
+#transactions {
+	@include grid-column(12);
+	@include breakpoint($md-screen) {
+		@include grid-column(4);
+	}
+	
+	input {
+		padding: 7px 0 7px 10px;
+	}
+	
+	button {
+		background-color: $primary-color;
+		color: white;
+		padding: 10px 20px;
+		font-weight: bold;
+		width: auto;
+	}
+}

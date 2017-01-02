@@ -6,6 +6,7 @@ let a = 0; // counter for stat updates at 1 min intervals
 // User stats
 let money = 100;
 let items = 0;
+let alert = document.querySelector('#alert');
 
 // Chart data
 // http://canvasjs.com/
@@ -18,7 +19,7 @@ let chart = new CanvasJS.Chart("line-graph", {
 		title: "Time (sec)"
 	},
 	axisY:{
-		title: "Rate (%)"
+		title: "Rate ($)"
 	},
 	data: [{
 		type: "line",
@@ -34,6 +35,12 @@ function init() {
 	
 	chart.render();
 	updateUserStats();
+	
+	let buy = document.querySelector('#buy');
+	buy.addEventListener('click', buyItem);
+	
+	let sell = document.querySelector('#sell');
+	sell.addEventListener('click', sellItem);
 }
 
 
@@ -49,7 +56,7 @@ function getRate() {
 		rate = response.exchange;
 		
 		let rateDiv = document.querySelector('#rate');
-		rateDiv.textContent = rate;
+		rateDiv.textContent = Math.round(rate * 100)/100;
 		
 		// Update plot points on graph
 		let point = {
@@ -71,10 +78,10 @@ function getRate() {
 				let sign = '-';
 			}
 			let signDiv = document.querySelector('#sign');
-			signDiv.textContent = sign;
+			signDiv.textContent = 'Trends: ' + sign;
 			
 			let trendDiv = document.querySelector('#trend');
-			trendDiv.textContent = Math.abs(diff);
+			trendDiv.textContent = Math.abs(Math.round(diff * 100)/100) + ' in the past minute';
 			
 			prevRate = rate;
 			
@@ -90,7 +97,7 @@ function getRate() {
 
 function updateUserStats() {
 	let moneyDiv = document.querySelector('#balance');
-	moneyDiv.textContent = money;
+	moneyDiv.textContent = '$' + money.toFixed(2);
 	
 	let itemsDiv = document.querySelector('#items');
 	itemsDiv.textContent = items;
@@ -98,12 +105,38 @@ function updateUserStats() {
 
 
 function buyItem() {
+	let input = document.querySelector('#sellAmount').value;
+	let amount = parseInt(input);
+	let cost = Math.round(rate * amount * 100)/100;
+	
+	// Check that user has enough money to buy
+	if (cost <= money) {
+		money -= cost;
+		items += amount;
+		updateUserStats();
+		alert.textContent = 'You bought ' + amount + ' share(s) for $' + cost + '.';
+	} else {
+		alert.textContent = 'You don\'t have enough money for this purchase.';
+	}
 	
 }
 
 
 function sellItem() {
+	let input = document.querySelector('#sellAmount').value;
+	let amount = parseInt(input);
+	let cost = Math.round(rate * amount * 100)/100;
+	console.log(cost);
 	
+	// Check that user has enough items to sell
+	if (amount <= items) {
+		money += cost;
+		items -= amount;
+		updateUserStats();
+		alert.textContent = 'You sold ' + amount + ' share(s) for $' + cost + '.';
+	} else {
+		alert.textContent = 'You don\'t have enough shares for this sale.';
+	}
 }
 
 window.addEventListener('load', init);

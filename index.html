@@ -13,12 +13,12 @@
 				
 				<div id="user-stats">
 					<div class="user-balance">
-						<p>Balance:</p>
+						<p class="label">Balance</p>
 						<p id="balance"></p>
 					</div>
 					
 					<div class="user-items">
-						<p>Items:</p>
+						<p class="label">Shares</p>
 						<p id="items"></p>
 					</div>
 				</div>
@@ -27,17 +27,29 @@
 		
 		<div>
 			<section id="market-stats">
-				<h2>Market</h2>
-				<p>The rate is: <span id="rate"></span></p>
+				<h2>Market Rate</h2>
+				<p>Current Rate: <span id="rate"></span></p>
 				
-				<div id="line-graph" style="height: 200px; width: 100%;"></div>
+				<p><span id="sign"></span><span id="trend"></span></p>
 				
-				<p><span id="sign"></span> <span id="trend"></span></p>
+				<div id="line-graph"></div>
 			</section>
 			
 			
 			<section id="transactions">
 				<h2>Transactions</h2>
+				<p id="alert">Choose the amount of shares for your transaction.</p>
+				
+				<p>
+					<input type="number" min="1" max="10" placeholder="1" value="1" id="buyAmount">
+					<button id="buy">Buy Shares</button>
+				</p>
+				
+				<p>
+					<input type="number" min="1" max="10" placeholder="1" value="1" id="sellAmount">
+					<button id="sell">Sell Shares</button>
+				</p>
+				
 				<p>list of things will go here</p>
 			</section>
 		</div>

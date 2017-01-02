@@ -1378,6 +1378,10 @@ body > div {
 h1, h2, h3 {
   color: #1F334B; }
 
+@media screen and (min-width: 30em) {
+  h2 {
+    border-bottom: 2px dashed #8FADBF; } }
+
 #top-bar {
   background-color: #8FADBF;
   color: #1F334B; }
@@ -1416,6 +1420,9 @@ h1, h2, h3 {
       float: right; }
     #top-bar #user-stats p {
       margin: 0; }
+    #top-bar #user-stats p.label {
+      line-height: 1.2rem;
+      font-weight: bold; }
     #top-bar #user-stats div {
       margin-left: 20px;
       text-align: center; }
@@ -1423,16 +1430,69 @@ h1, h2, h3 {
       color: white;
       font-size: 2rem; }
 
+#line-graph {
+  height: 200px;
+  width: 100%; }
+
 #market-stats {
-  width: 50%;
+  width: 100%;
   float: left;
   padding-right: 0.625rem;
-  padding-left: 0.625rem; }
+  padding-left: 0.625rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px dashed #8FADBF; }
   @media print, screen and (min-width: 40em) {
     #market-stats {
       padding-right: 0.9375rem;
       padding-left: 0.9375rem; } }
   #market-stats:last-child:not(:first-child) {
     float: right; }
+  @media screen and (min-width: 30em) {
+    #market-stats {
+      width: 66.66667%;
+      float: left;
+      padding-right: 0.625rem;
+      padding-left: 0.625rem;
+      border-bottom: none; } }
+  @media screen and (min-width: 30em) and (min-width: 40em) {
+    #market-stats {
+      padding-right: 0.9375rem;
+      padding-left: 0.9375rem; } }
+  @media screen and (min-width: 30em) {
+      #market-stats:last-child:not(:first-child) {
+        float: right; } }
+
+#transactions {
+  width: 100%;
+  float: left;
+  padding-right: 0.625rem;
+  padding-left: 0.625rem; }
+  @media print, screen and (min-width: 40em) {
+    #transactions {
+      padding-right: 0.9375rem;
+      padding-left: 0.9375rem; } }
+  #transactions:last-child:not(:first-child) {
+    float: right; }
+  @media screen and (min-width: 30em) {
+    #transactions {
+      width: 33.33333%;
+      float: left;
+      padding-right: 0.625rem;
+      padding-left: 0.625rem; } }
+  @media screen and (min-width: 30em) and (min-width: 40em) {
+    #transactions {
+      padding-right: 0.9375rem;
+      padding-left: 0.9375rem; } }
+  @media screen and (min-width: 30em) {
+      #transactions:last-child:not(:first-child) {
+        float: right; } }
+  #transactions input {
+    padding: 7px 0 7px 10px; }
+  #transactions button {
+    background-color: #1F334B;
+    color: white;
+    padding: 10px 20px;
+    font-weight: bold;
+    width: auto; }
 
 /*# sourceMappingURL=style.css.map */
