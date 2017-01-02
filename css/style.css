@@ -1445,7 +1445,8 @@ h1, h2, h3 {
 
 #line-graph {
   height: 200px;
-  width: 100%; }
+  width: 100%;
+  margin-bottom: 2rem; }
 
 #market-stats {
   width: 100%;
@@ -1462,7 +1463,7 @@ h1, h2, h3 {
     float: right; }
   @media screen and (min-width: 30em) {
     #market-stats {
-      width: 66.66667%;
+      width: 58.33333%;
       float: left;
       padding-right: 0.625rem;
       padding-left: 0.625rem;
@@ -1474,6 +1475,13 @@ h1, h2, h3 {
   @media screen and (min-width: 30em) {
       #market-stats:last-child:not(:first-child) {
         float: right; } }
+  #market-stats label {
+    font-weight: bold; }
+  #market-stats p.checkbox {
+    margin: 5px 0; }
+    #market-stats p.checkbox input {
+      padding: 4px;
+      max-width: 60px; }
 
 #transactions {
   width: 100%;
@@ -1488,7 +1496,7 @@ h1, h2, h3 {
     float: right; }
   @media screen and (min-width: 30em) {
     #transactions {
-      width: 33.33333%;
+      width: 41.66667%;
       float: left;
       padding-right: 0.625rem;
       padding-left: 0.625rem; } }

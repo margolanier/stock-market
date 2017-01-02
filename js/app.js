@@ -1,3 +1,7 @@
+/**************************
+ * Variables
+ **************************/
+
 // Market stats
 let rate = 0;
 let prevRate = 0;
@@ -6,7 +10,12 @@ let a = 0; // counter for stat updates at 1 min intervals
 // User stats
 let money = 100;
 let items = 0;
+
+// Transactions
 let alert = document.querySelector('#alert');
+let autobuy = false;
+let autosell = false;
+let auto = false; // set to true when auto-transaction is triggered
 
 // Chart data
 // http://canvasjs.com/
@@ -41,9 +50,32 @@ function init() {
 	
 	let sell = document.querySelector('#sell');
 	sell.addEventListener('click', sellItem);
+	
+	
+	// Auto transactions set by user
+	let checkAutoBuy = document.querySelector('#autobuy');
+	checkAutoBuy.addEventListener('change', function() {
+		if (checkAutoBuy.checked) {
+			autobuy = true;
+		} else {
+			autobuy = false; // user unchecked box
+		}
+	});
+	
+	let checkAutoSell = document.querySelector('#autosell');
+	checkAutoSell.addEventListener('change', function() {
+		if (checkAutoSell.checked) {
+			autosell = true;
+		} else {
+			autosell = false;
+		}
+	});
 }
 
 
+/**************************
+ * Update rates
+ **************************/
 function getRate() {
 	let request = new XMLHttpRequest();
 	
@@ -69,6 +101,7 @@ function getRate() {
 		}
 		chart.render();
 		
+		
 		// Calculate change in rate every 60 sec
 		if (a === 12) {
 			let diff = rate - prevRate;
@@ -89,12 +122,38 @@ function getRate() {
 			a = 0;
 		}
 		a++;
+		
+		
+		// If autobuy is on, check rate against thresholds
+		if (autobuy) {
+			let threshold = parseInt(document.querySelector('#autoBuyPrice').value);
+			console.log(threshold);
+			
+			if (threshold <= rate) {
+				auto = true;
+				buyItem();
+			}
+		}
+		
+		if (autosell) {
+			let threshold = parseInt(document.querySelector('#autoSellPrice').value);
+			console.log(threshold);
+			
+			if (threshold >= rate) {
+				auto = true;
+				sellItem();
+			}
+		}
+		
 	});
 	
 	request.send();
 }
 
 
+/**************************
+ * Transactions
+ **************************/
 function updateUserStats() {
 	let moneyDiv = document.querySelector('#balance');
 	moneyDiv.textContent = '$' + money.toFixed(2);
@@ -123,8 +182,11 @@ function updateList(type, amount, transaction_rate, cost) {
 
 
 function buyItem() {
-	let input = document.querySelector('#sellAmount').value;
-	let amount = parseInt(input);
+	let amount = parseInt(document.querySelector('#buyAmount').value);
+	if (auto) {
+		amount = 1;
+	}
+	
 	let cost = Math.round(rate * amount * 100)/100;
 	
 	// Check that user has enough money to buy
@@ -137,17 +199,21 @@ function buyItem() {
 		updateList(type, amount, rate, cost);
 		alert.textContent = 'You bought ' + amount + ' share(s) for $' + cost + '.';
 	} else {
-		alert.textContent = 'You don\'t have enough money for this purchase.';
+		if (auto === 'false') {
+			alert.textContent = 'You don\'t have enough money for this purchase.';
+		}
 	}
-	
+	auto = false;
 }
 
 
 function sellItem() {
-	let input = document.querySelector('#sellAmount').value;
-	let amount = parseInt(input);
+	let amount = parseInt(document.querySelector('#sellAmount').value);
+	if (auto) {
+		amount = 1;
+	}
+	
 	let cost = Math.round(rate * amount * 100)/100;
-	console.log(cost);
 	
 	// Check that user has enough items to sell
 	if (amount <= items) {
@@ -159,8 +225,11 @@ function sellItem() {
 		updateList(type, amount, rate, cost);
 		alert.textContent = 'You sold ' + amount + ' share(s) for $' + cost + '.';
 	} else {
-		alert.textContent = 'You don\'t have enough shares for this sale.';
+		if (auto === 'false') {
+			alert.textContent = 'You don\'t have enough shares for this sale.';
+		}
 	}
+	auto = false;
 }
 
 

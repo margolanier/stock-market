@@ -83,6 +83,7 @@ h2 {
 #line-graph {
 	height: 200px;
 	width: 100%;
+	margin-bottom: 2rem;
 }
 
 #market-stats {
@@ -91,15 +92,28 @@ h2 {
 	border-bottom: 2px dashed $secondary-color;
 	
 	@include breakpoint($md-screen) {
-		@include grid-column(8);
+		@include grid-column(7);
 		border-bottom: none;
+	}
+	
+	label {
+		font-weight: bold;
+	}
+	
+	p.checkbox {
+		margin: 5px 0;
+		
+		input {
+			padding: 4px;
+			max-width: 60px;
+		}
 	}
 }
 
 #transactions {
 	@include grid-column(12);
 	@include breakpoint($md-screen) {
-		@include grid-column(4);
+		@include grid-column(5);
 	}
 	
 	input {
@@ -113,4 +127,5 @@ h2 {
 		font-weight: bold;
 		width: auto;
 	}
+	
 }
