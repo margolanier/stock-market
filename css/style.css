@@ -1394,38 +1394,51 @@ h1, h2, h3 {
       content: ' '; }
     #top-bar header::after {
       clear: both; }
+    @media screen and (min-width: 30em) {
+      #top-bar header {
+        display: flex;
+        align-items: center; } }
   #top-bar h1 {
-    width: 50%;
+    width: 100%;
     float: left;
     padding-right: 0.625rem;
-    padding-left: 0.625rem; }
+    padding-left: 0.625rem;
+    text-align: center; }
     @media print, screen and (min-width: 40em) {
       #top-bar h1 {
         padding-right: 0.9375rem;
         padding-left: 0.9375rem; } }
     #top-bar h1:last-child:not(:first-child) {
       float: right; }
+    @media screen and (min-width: 30em) {
+      #top-bar h1 {
+        text-align: left; } }
   #top-bar #user-stats {
-    width: 50%;
+    width: 100%;
     float: left;
     padding-right: 0.625rem;
     padding-left: 0.625rem;
     display: flex;
-    justify-content: flex-end; }
+    justify-content: space-around; }
     @media print, screen and (min-width: 40em) {
       #top-bar #user-stats {
         padding-right: 0.9375rem;
         padding-left: 0.9375rem; } }
     #top-bar #user-stats:last-child:not(:first-child) {
       float: right; }
+    @media screen and (min-width: 30em) {
+      #top-bar #user-stats {
+        justify-content: flex-end; } }
     #top-bar #user-stats p {
       margin: 0; }
     #top-bar #user-stats p.label {
       line-height: 1.2rem;
       font-weight: bold; }
     #top-bar #user-stats div {
-      margin-left: 20px;
       text-align: center; }
+      @media screen and (min-width: 30em) {
+        #top-bar #user-stats div {
+          margin-left: 20px; } }
     #top-bar #user-stats #balance, #top-bar #user-stats #items {
       color: white;
       font-size: 2rem; }

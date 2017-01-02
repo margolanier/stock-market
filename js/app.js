@@ -78,7 +78,7 @@ function getRate() {
 				let sign = '-';
 			}
 			let signDiv = document.querySelector('#sign');
-			signDiv.textContent = 'Trends: ' + sign;
+			signDiv.textContent = 'Trend: ' + sign;
 			
 			let trendDiv = document.querySelector('#trend');
 			trendDiv.textContent = Math.abs(Math.round(diff * 100)/100) + ' in the past minute';
@@ -104,6 +104,24 @@ function updateUserStats() {
 }
 
 
+function updateList(type, amount, transaction_rate, cost) {
+	let list = document.querySelector('#transaction-list');
+	
+	let item = document.createElement('li');
+	item.innerHTML = Mustache.render(
+		document.querySelector('#list-template').innerHTML,
+		{
+			trn_type: type,
+			trn_amount: amount,
+			trn_rate: Math.round(transaction_rate *100)/100,
+			trn_cost: cost
+		}
+	);
+	
+	list.appendChild(item);
+}
+
+
 function buyItem() {
 	let input = document.querySelector('#sellAmount').value;
 	let amount = parseInt(input);
@@ -113,7 +131,10 @@ function buyItem() {
 	if (cost <= money) {
 		money -= cost;
 		items += amount;
+		let type = 'Purchase';
+		
 		updateUserStats();
+		updateList(type, amount, rate, cost);
 		alert.textContent = 'You bought ' + amount + ' share(s) for $' + cost + '.';
 	} else {
 		alert.textContent = 'You don\'t have enough money for this purchase.';
@@ -132,11 +153,15 @@ function sellItem() {
 	if (amount <= items) {
 		money += cost;
 		items -= amount;
+		let type = 'Sale';
+		
 		updateUserStats();
+		updateList(type, amount, rate, cost);
 		alert.textContent = 'You sold ' + amount + ' share(s) for $' + cost + '.';
 	} else {
 		alert.textContent = 'You don\'t have enough shares for this sale.';
 	}
 }
+
 
 window.addEventListener('load', init);

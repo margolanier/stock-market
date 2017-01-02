@@ -30,16 +30,30 @@ h2 {
 	
 	header {
 		@include grid-row();
+		
+		@include breakpoint($md-screen) {
+			display: flex;
+			align-items: center;
+		}
 	}
 	
 	h1 {
-		@include grid-column(6);
+		@include grid-column(12);
+		text-align: center;
+		
+		@include breakpoint($md-screen) {
+			text-align: left;
+		}
 	}
 	
 	#user-stats {
-		@include grid-column(6);
+		@include grid-column(12);
 		display: flex;
-		justify-content: flex-end;
+		justify-content: space-around;
+		
+		@include breakpoint($md-screen) {
+			justify-content: flex-end;
+		}
 		
 		p {
 			margin: 0;
@@ -51,8 +65,11 @@ h2 {
 		}
 		
 		div {
-			margin-left: 20px;
 			text-align: center;
+			
+			@include breakpoint($md-screen) {
+				margin-left: 20px;
+			}
 		}
 		
 		#balance, #items {
@@ -73,7 +90,7 @@ h2 {
 	padding-bottom: 2rem;
 	border-bottom: 2px dashed $secondary-color;
 	
-	@include breakpoint(480px) {
+	@include breakpoint($md-screen) {
 		@include grid-column(8);
 		border-bottom: none;
 	}
