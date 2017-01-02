@@ -7,25 +7,40 @@
 	</head>
 	
 	<body>
-		<h1>Wall Street 2.0</h1>
-		
-		<section id="live-stats">
-			<div class="market-rate">
-				<p>The rate is: <span id="rate"></span></p>
-				<div id="line-graph" style="height: 200px; width: 400px;"></div>
-				<p><span id="sign"></span> <span id="trend"></span></p>
-			</div>
-			
-			<div class="user-balance">
-				<p id="balance"></p>
-			</div>
-			
-			<div class="user-items">
-				<p id="items"></p>
-			</div>
+		<section id="top-bar">
+			<header>
+				<h1>Wall Street 2.0</h1>
+				
+				<div id="user-stats">
+					<div class="user-balance">
+						<p>Balance:</p>
+						<p id="balance"></p>
+					</div>
+					
+					<div class="user-items">
+						<p>Items:</p>
+						<p id="items"></p>
+					</div>
+				</div>
+			</header>
 		</section>
 		
-		
+		<div>
+			<section id="market-stats">
+				<h2>Market</h2>
+				<p>The rate is: <span id="rate"></span></p>
+				
+				<div id="line-graph" style="height: 200px; width: 100%;"></div>
+				
+				<p><span id="sign"></span> <span id="trend"></span></p>
+			</section>
+			
+			
+			<section id="transactions">
+				<h2>Transactions</h2>
+				<p>list of things will go here</p>
+			</section>
+		</div>
 		
 		
 		<script src="js/jquery.min.js"></script>

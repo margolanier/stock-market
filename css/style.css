@@ -1365,15 +1365,74 @@ button {
       .column-block > :last-child {
         margin-bottom: 0; } }
 
-#live-stats {
+body > div {
   max-width: 75rem;
   margin-right: auto;
-  margin-left: auto;
-  background: #e5e5e5; }
-  #live-stats::before, #live-stats::after {
+  margin-left: auto; }
+  body > div::before, body > div::after {
     display: table;
     content: ' '; }
-  #live-stats::after {
+  body > div::after {
     clear: both; }
+
+h1, h2, h3 {
+  color: #1F334B; }
+
+#top-bar {
+  background-color: #8FADBF;
+  color: #1F334B; }
+  #top-bar header {
+    max-width: 75rem;
+    margin-right: auto;
+    margin-left: auto; }
+    #top-bar header::before, #top-bar header::after {
+      display: table;
+      content: ' '; }
+    #top-bar header::after {
+      clear: both; }
+  #top-bar h1 {
+    width: 50%;
+    float: left;
+    padding-right: 0.625rem;
+    padding-left: 0.625rem; }
+    @media print, screen and (min-width: 40em) {
+      #top-bar h1 {
+        padding-right: 0.9375rem;
+        padding-left: 0.9375rem; } }
+    #top-bar h1:last-child:not(:first-child) {
+      float: right; }
+  #top-bar #user-stats {
+    width: 50%;
+    float: left;
+    padding-right: 0.625rem;
+    padding-left: 0.625rem;
+    display: flex;
+    justify-content: flex-end; }
+    @media print, screen and (min-width: 40em) {
+      #top-bar #user-stats {
+        padding-right: 0.9375rem;
+        padding-left: 0.9375rem; } }
+    #top-bar #user-stats:last-child:not(:first-child) {
+      float: right; }
+    #top-bar #user-stats p {
+      margin: 0; }
+    #top-bar #user-stats div {
+      margin-left: 20px;
+      text-align: center; }
+    #top-bar #user-stats #balance, #top-bar #user-stats #items {
+      color: white;
+      font-size: 2rem; }
+
+#market-stats {
+  width: 50%;
+  float: left;
+  padding-right: 0.625rem;
+  padding-left: 0.625rem; }
+  @media print, screen and (min-width: 40em) {
+    #market-stats {
+      padding-right: 0.9375rem;
+      padding-left: 0.9375rem; } }
+  #market-stats:last-child:not(:first-child) {
+    float: right; }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,11 +1,14 @@
+// Market stats
 let rate = 0;
 let prevRate = 0;
 let a = 0; // counter for stat updates at 1 min intervals
 
-let userBalance = 100;
+// User stats
+let money = 100;
 let items = 0;
 
-/* gracias http://canvasjs.com/ */
+// Chart data
+// http://canvasjs.com/
 let plotPoints = [];
 let chart = new CanvasJS.Chart("line-graph", {
 	title: {
@@ -24,11 +27,13 @@ let chart = new CanvasJS.Chart("line-graph", {
 	}]
 });
 
+
 function init() {
 	getRate();
-	setInterval(getRate, 1000);
+	setInterval(getRate, 5000);
 	
 	chart.render();
+	updateUserStats();
 }
 
 
@@ -58,7 +63,7 @@ function getRate() {
 		chart.render();
 		
 		// Calculate change in rate every 60 sec
-		if (a === 6) {
+		if (a === 12) {
 			let diff = rate - prevRate;
 			
 			let sign = '+';
@@ -73,13 +78,22 @@ function getRate() {
 			
 			prevRate = rate;
 			
-		} else if (a > 6) {
+		} else if (a > 12) {
 			a = 0;
 		}
 		a++;
 	});
 	
 	request.send();
+}
+
+
+function updateUserStats() {
+	let moneyDiv = document.querySelector('#balance');
+	moneyDiv.textContent = money;
+	
+	let itemsDiv = document.querySelector('#items');
+	itemsDiv.textContent = items;
 }
 
 

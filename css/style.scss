@@ -2,7 +2,55 @@
 @include foundation-global-styles;
 @include foundation-grid;
 
-#live-stats {
-	@include grid-row();
-	background: #e5e5e5;
+$primary-color: #1F334B;
+$secondary-color: #8FADBF;
+
+
+body {
+	&>div {
+		@include grid-row();
+	}
 }
+
+h1, h2, h3 {
+	color: $primary-color;
+}
+
+#top-bar {
+	background-color: $secondary-color;
+	color: $primary-color;
+	
+	header {
+		@include grid-row();
+	}
+	
+	h1 {
+		@include grid-column(6);
+	}
+	
+	#user-stats {
+		@include grid-column(6);
+		display: flex;
+		justify-content: flex-end;
+		
+		p {
+			margin: 0;
+		}
+		
+		div {
+			margin-left: 20px;
+			text-align: center;
+		}
+		
+		#balance, #items {
+			color: white;
+			font-size: 2rem;
+		}
+	}
+	
+}
+
+#market-stats {
+	@include grid-column(6);
+}
+
