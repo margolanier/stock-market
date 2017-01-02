@@ -7,9 +7,5 @@ Thumbs.db
 .htaccess
 
 node_modules/*
-.sass-cache/*
-style.css.map
-
-index.js
-package.json
-api/*
+css/.sass-cache/*
+css/style.css.map
