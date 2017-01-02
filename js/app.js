@@ -127,7 +127,6 @@ function getRate() {
 		// If autobuy is on, check rate against thresholds
 		if (autobuy) {
 			let threshold = parseInt(document.querySelector('#autoBuyPrice').value);
-			console.log(threshold);
 			
 			if (threshold <= rate) {
 				auto = true;
@@ -137,7 +136,6 @@ function getRate() {
 		
 		if (autosell) {
 			let threshold = parseInt(document.querySelector('#autoSellPrice').value);
-			console.log(threshold);
 			
 			if (threshold >= rate) {
 				auto = true;
