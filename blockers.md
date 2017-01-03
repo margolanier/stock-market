@@ -40,7 +40,7 @@ closures and callbacks
 
 ### 5
 was using toFixed() but that returns a string and wanted to display/calculate at same time  
-used (x * 100)/100 instead, but idk?
+used Math.round(x * 100)/100 instead, but idk?
 
 ### 6
 what is a use case for input hidden objects?  

@@ -4,8 +4,7 @@
 
 // Market stats
 let rate = 0;
-let prevRate = 0;
-let a = 0; // counter for stat updates at 1 min intervals
+let ratesThisMin = [];
 
 // User stats
 let money = 100;
@@ -33,7 +32,7 @@ let chart = new CanvasJS.Chart("line-graph", {
 	data: [{
 		type: "line",
 		xValueType: "dateTime",
-		dataPoints: plotPoints
+		dataPoints: plotPoints,
 	}]
 });
 
@@ -55,20 +54,12 @@ function init() {
 	// Auto transactions set by user
 	let checkAutoBuy = document.querySelector('#autobuy');
 	checkAutoBuy.addEventListener('change', function() {
-		if (checkAutoBuy.checked) {
-			autobuy = true;
-		} else {
-			autobuy = false; // user unchecked box
-		}
+		autobuy = (checkAutoBuy.checked === 'true');
 	});
 	
 	let checkAutoSell = document.querySelector('#autosell');
 	checkAutoSell.addEventListener('change', function() {
-		if (checkAutoSell.checked) {
-			autosell = true;
-		} else {
-			autosell = false;
-		}
+		autosell = (checkAutoSell.checked === 'true');
 	});
 }
 
@@ -88,12 +79,12 @@ function getRate() {
 		rate = response.exchange;
 		
 		let rateDiv = document.querySelector('#rate');
-		rateDiv.textContent = Math.round(rate * 100)/100;
+		rateDiv.textContent = rate.toFixed(2);
 		
 		// Update plot points on graph
 		let point = {
 			x: Date.now(),
-			y: rate
+			y: rate,
 		};
 		plotPoints.push(point);
 		if (plotPoints.length > 10) {
@@ -103,25 +94,21 @@ function getRate() {
 		
 		
 		// Calculate change in rate every 60 sec
-		if (a === 12) {
-			let diff = rate - prevRate;
+		ratesThisMin.push(rate);
+		if (ratesThisMin.length > 12) {
+			let diff = ratesThisMin[11] - ratesThisMin[0];
+			ratesThisMin.shift(0, 1);
 			
-			let sign = '+';
-			if (diff < 0) {
-				let sign = '-';
-			}
+			let sign = (diff < 0) ? '+' : '-';
+			
 			let signDiv = document.querySelector('#sign');
 			signDiv.textContent = 'Trend: ' + sign;
 			
 			let trendDiv = document.querySelector('#trend');
-			trendDiv.textContent = Math.abs(Math.round(diff * 100)/100) + ' in the past minute';
+			trendDiv.textContent = Math.abs(diff.toFixed(2)) + ' in the past minute';
 			
-			prevRate = rate;
-			
-		} else if (a > 12) {
-			a = 0;
 		}
-		a++;
+		
 		
 		
 		// If autobuy is on, check rate against thresholds
@@ -170,8 +157,8 @@ function updateList(type, amount, transaction_rate, cost) {
 		{
 			trn_type: type,
 			trn_amount: amount,
-			trn_rate: Math.round(transaction_rate *100)/100,
-			trn_cost: cost
+			trn_rate: transaction_rate.toFixed(2),
+			trn_cost: cost.toFixed(2),
 		}
 	);
 	
@@ -180,12 +167,9 @@ function updateList(type, amount, transaction_rate, cost) {
 
 
 function buyItem() {
-	let amount = parseInt(document.querySelector('#buyAmount').value);
-	if (auto) {
-		amount = 1;
-	}
+	let amount = auto ? 1 : parseInt(document.querySelector('#buyAmount').value);
 	
-	let cost = Math.round(rate * amount * 100)/100;
+	let cost = rate * amount;
 	
 	// Check that user has enough money to buy
 	if (cost <= money) {
@@ -195,7 +179,7 @@ function buyItem() {
 		
 		updateUserStats();
 		updateList(type, amount, rate, cost);
-		alert.textContent = 'You bought ' + amount + ' share(s) for $' + cost + '.';
+		alert.textContent = 'You bought ' + amount + ' share(s) for $' + cost.toFixed(2) + '.';
 	} else {
 		if (auto === 'false') {
 			alert.textContent = 'You don\'t have enough money for this purchase.';
@@ -206,12 +190,9 @@ function buyItem() {
 
 
 function sellItem() {
-	let amount = parseInt(document.querySelector('#sellAmount').value);
-	if (auto) {
-		amount = 1;
-	}
+	let amount = auto ? 1 : parseInt(document.querySelector('#sellAmount').value);
 	
-	let cost = Math.round(rate * amount * 100)/100;
+	let cost = rate * amount;
 	
 	// Check that user has enough items to sell
 	if (amount <= items) {
@@ -221,7 +202,7 @@ function sellItem() {
 		
 		updateUserStats();
 		updateList(type, amount, rate, cost);
-		alert.textContent = 'You sold ' + amount + ' share(s) for $' + cost + '.';
+		alert.textContent = 'You sold ' + amount + ' share(s) for $' + cost.toFixed(2) + '.';
 	} else {
 		if (auto === 'false') {
 			alert.textContent = 'You don\'t have enough shares for this sale.';
