@@ -1,6 +1,5 @@
 # Things idk
 
-
 ### 1
 Which is the better way to handle the array?  
 Prob:
@@ -46,7 +45,18 @@ used Math.round(x * 100)/100 instead, but idk?
 what is a use case for input hidden objects?  
 I ended up using 2 arrays for autocomplete, one with original word, one with b tags  
 kind of wanted a way to have 2 values of an input field so i could call input.value and input.value2 in different cases  
-not the same thing, but i found it on Googz
+not the same thing i don't think, but i found it on Googz
 
 ### 7
-how should i actually do #6?
+so, how should i actually do #6?
+
+### 8
+how do you feel about using 'continue'? and also break?  
+was going to use when writing my whole weird <pre>if (continue === true)</pre> autocomplete thing.  
+but The Internet says it is bad.
+
+### 9
+how do you import local json files?  like AJAX-y stuff, but it wouldn't be an http request.  
+I could only find the require statement + Angular answers. do they go together?
+
+that is all.  goodnight.
